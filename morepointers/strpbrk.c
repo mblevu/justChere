@@ -26,11 +26,18 @@ char *_strpbrk(char *s, char *accept)
 
 int main(void)
 {
-    char *s = "hello, world";
-    char *f = "world";
+    char s[]= "hello, world";
     char *t;
 
-    t = _strpbrk(s, f);
-    printf("%s\n", t);
+    t = _strpbrk(s, "f");
+    if (t != NULL)
+    {
+        printf("found at position %ld\n", t - s);
+    }
+    else 
+    {
+        printf("Not found!\n");
+    }
+    
     return (0);
 }
