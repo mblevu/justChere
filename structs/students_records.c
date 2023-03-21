@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * prompt for student details
+ * store n number of students
+ * output student details
+*/
 
 struct student{
     char name[50];
