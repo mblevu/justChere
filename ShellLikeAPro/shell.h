@@ -43,6 +43,11 @@ char **expand_variables(char **args, int *n);
 void handle_question_mark(int status);
 void handle_double_dollar(char **args);
 void remove_comments(char *input);
+char *my_strtok(char *str, const char *delim);
+char *my_strpbrk(const char *s, const char *accept);
+int my_strncmp(const char *s1, const char *s2, size_t n);
+char *my_strncpy(char *dest, const char *src, size_t n);
+int my_atoi(const char *str);
 
 
 
