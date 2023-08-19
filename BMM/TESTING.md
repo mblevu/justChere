@@ -346,7 +346,7 @@ The [run_test_scenario](https://github.com/kintokeanu/justChere/blob/main/BMM/te
 **Outcome:**
 
 
-A- ll allocations and deallocations are successful.
+- All allocations and deallocations are successful.
 - Average allocation time is moderate.
 - Maximum allocated size is 80 bytes.
 - No failed allocation requests.
