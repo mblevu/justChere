@@ -73,44 +73,15 @@ This guide outlines the steps to effectively test the memory manager program . T
 └─$ `gcc -g -Wall -Wextra -Werror -pedantic  -std=gnu89 *.c -o memory_manager` 
 
 
-└─$ `gdb ./memory_manager`   
+└─$ `gdb ./memory_manager`
 
-GNU gdb (Debian 13.2-1) 13.2
-Copyright (C) 2023 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-Type "show copying" and "show warranty" for details.
-This GDB was configured as "x86_64-linux-gnu".
-Type "show configuration" for configuration details.
---Type <RET> for more, q to quit, c to continue without paging--c
-For bug reporting instructions, please see:
-<https://www.gnu.org/software/gdb/bugs/>.
-Find the GDB manual and other documentation resources online at:
-    <http://www.gnu.org/software/gdb/documentation/>.
-
-For help, type "help".
-Type "apropos word" to search for commands related to "word"...
-Reading symbols from ./memory_manager...
-(gdb) `run`
-Starting program: /home/levu/justChere/BMM/memory_manager 
-[Thread debugging using libthread_db enabled]
-Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
-Test scenario
-- Pool size: 1048576, Max block size: 128
-- Total allocations: 100
-- Total deallocations: 1
-- Average allocation time: 0.000001 seconds
-- Average deallocation time: 0.000001 seconds
-- Maximum allocated size: 142 bytes
-- Minimum allocated size: 2 bytes
-- Average allocated size: 64.84 bytes
-- Total failed allocation requests: 0
+![gdb](images/gdb.png)
 
 *Use valgrind to check for memory leaks*
 
 
 └─$ `valgrind ./memory_manager`
+
 ![Valgrind](images/valgrind.png)
 
 ⋅⋅⋅**Re-test:** After making changes to the code, re-run the program and re-test the affected scenarios.⋅⋅
