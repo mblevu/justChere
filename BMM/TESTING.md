@@ -24,6 +24,12 @@ This guide outlines the steps to effectively test the memory manager program . T
 * *Edge Cases*: Test with extreme values and edge cases, such as zero-sized allocations.
 * *Mixed Scenarios*: Combine different pool sizes, maximum block sizes, and request numbers in a single test run.
 
+
+* number of test scenarios *
+
+`#define NUM_TEST_SCENARIOS 10`
+
+`TestScenario test_scenarios[NUM_TEST_SCENARIOS] = {`
     {1048576, 128, 100},                             /*Small pool, small max block size*/
 
     {1024 * 1024 * 1024, 2 * 1024 * 1024, 100},      /*Large pool, large max block size*/
@@ -44,6 +50,7 @@ This guide outlines the steps to effectively test the memory manager program . T
     
     {1024 * 1024 * 1024, 1024 * 1024, 100}           /*Large pool, same size max block size as pool*/
 
+`}`
 
 # Testing Steps:
 
