@@ -30,6 +30,7 @@ This guide outlines the steps to effectively test the memory manager program . T
 `#define NUM_TEST_SCENARIOS 10`
 
 `TestScenario test_scenarios[NUM_TEST_SCENARIOS] = {`
+
     {1048576, 128, 100},                             /*Small pool, small max block size*/
 
     {1024 * 1024 * 1024, 2 * 1024 * 1024, 100},      /*Large pool, large max block size*/
