@@ -272,166 +272,166 @@ The [run_test_scenario](https://github.com/kintokeanu/justChere/blob/main/BMM/te
 **Small Pool, Small Max Block Size (Scenario 1):**
 
 
-Pool size: 1048576 (1 MB)
-Max block size: 128 bytes
-Number of requests: 100
+- Pool size: 1048576 (1 MB)
+- Max block size: 128 bytes
+- Number of requests: 100
 
 
 **Outcome**:
 
-All allocations and deallocations are successful.
-Average allocation time is very low.
-Maximum allocated size is 140 bytes, close to the maximum block size.
-No failed allocation requests.
+- All allocations and deallocations are successful.
+- Average allocation time is very low.
+- Maximum allocated size is 140 bytes, close to the maximum block size.
+- No failed allocation requests.
 
 
 **Large Pool, Large Max Block Size (Scenario 2):**
 
 
-Pool size: 1024 * 1024 * 1024 (1 GB)
-Max block size: 2 * 1024 * 1024 (2 MB)
-Number of requests: 100
+- Pool size: 1024 * 1024 * 1024 (1 GB)
+- Max block size: 2 * 1024 * 1024 (2 MB)
+- Number of requests: 100
 
 
 **Outcome:**
 
 
-All allocations and deallocations are successful.
-Average allocation time is higher than smaller scenarios.
-Maximum allocated size is 2091992 bytes, close to the maximum block size.
-No failed allocation requests.
+- All allocations and deallocations are successful.
+- Average allocation time is higher than smaller scenarios.
+- Maximum allocated size is 2091992 bytes, close to the maximum block size.
+- No failed allocation requests.
 
 
 **Large Pool, Variable Max Block Size (Scenario 3):**
 
 
-Pool size: 1024 * 1024 * 1024 (1 GB)
-Max block size: 0 (variable)
-Number of requests: 100
+- Pool size: 1024 * 1024 * 1024 (1 GB)
+- Max block size: 0 (variable)
+- Number of requests: 100
 
 
 **Outcome:**
 
 
-All allocations and deallocations are successful.
-Average allocation time is higher than smaller scenarios.
-Maximum allocated size is 16 bytes.
-No failed allocation requests.
+- All allocations and deallocations are successful.
+- Average allocation time is higher than smaller scenarios.
+- Maximum allocated size is 16 bytes.
+- No failed allocation requests.
 
 
 **Small Pool, Variable Max Block Size (Scenario 4):**
 
 
-Pool size: 1048576 (1 MB)
-Max block size: 0 (variable)
-Number of requests: 100
+- Pool size: 1048576 (1 MB)
+- Max block size: 0 (variable)
+- Number of requests: 100
 
 
 **Outcome:**
 
 
-All allocations and deallocations are successful.
-Average allocation time is higher than smaller scenarios.
-Maximum allocated size is 16 bytes.
-No failed allocation requests.
+- All allocations and deallocations are successful.
+- Average allocation time is higher than smaller scenarios.
+- Maximum allocated size is 16 bytes.
+- No failed allocation requests.
 
 
 **Medium Pool, Medium Max Block Size (Scenario 5):**
 
-Pool size: 1024 * 1024 (1 MB)
-Max block size: 64 bytes
-Number of requests: 1000
+- Pool size: 1024 * 1024 (1 MB)
+- Max block size: 64 bytes
+- Number of requests: 1000
 
 
 **Outcome:**
 
 
-All allocations and deallocations are successful.
-Average allocation time is moderate.
-Maximum allocated size is 80 bytes.
-No failed allocation requests.
+A- ll allocations and deallocations are successful.
+- Average allocation time is moderate.
+- Maximum allocated size is 80 bytes.
+- No failed allocation requests.
 
 
 **Small Pool, Large Max Block Size (Scenario 6):**
 
 
-Pool size: 1048576 (1 MB)
-Max block size: 1024 bytes
-Number of requests: 100
+- Pool size: 1048576 (1 MB)
+- Max block size: 1024 bytes
+- Number of requests: 100
 
 
 **Outcome:**
 
 
-All allocations and deallocations are successful.
-Average allocation time is very low.
-Maximum allocated size is 1036 bytes.
-No failed allocation requests.
+- All allocations and deallocations are successful.
+- Average allocation time is very low.
+- Maximum allocated size is 1036 bytes.
+- No failed allocation requests.
 
 
 **Very Small Pool, Medium Max Block Size (Scenario 7):**
 
 
-Pool size: 1024 (1 KB)
-Max block size: 512 bytes
-Number of requests: 10
+- Pool size: 1024 (1 KB)
+- Max block size: 512 bytes
+- Number of requests: 10
 
 
 **Outcome:**
 
 
-Few allocations are successful, others fail due to insufficient pool size.
-Average allocation time is very low.
-Maximum allocated size is 494 bytes.
-Some failed allocation requests.
+- Few allocations are successful, others fail due to insufficient pool size.
+- Average allocation time is very low.
+- Maximum allocated size is 494 bytes.
+- Some failed allocation requests.
 
 
 **Medium Pool, Variable Max Block Size (Scenario 8):**
 
 
-Pool size: 1024 * 1024 (1 MB)
-Max block size: 0 (variable)
-Number of requests: 1000
+- Pool size: 1024 * 1024 (1 MB)
+- Max block size: 0 (variable)
+- Number of requests: 1000
 
 
 **Outcome:**
 
 
-All allocations and deallocations are successful.
-Average allocation time is moderate.
-Maximum allocated size is 16 bytes.
-No failed allocation requests.
+- All allocations and deallocations are successful.
+- Average allocation time is moderate.
+- Maximum allocated size is 16 bytes.
+- No failed allocation requests.
 
 
 **Very Small Pool, Very Small Max Block Size (Scenario 9):**
 
 
-Pool size: 1024 (1 KB)
-Max block size: 16 bytes
-Number of requests: 10000
+- Pool size: 1024 (1 KB)
+- Max block size: 16 bytes
+- Number of requests: 10000
 
 
 **Outcome:**
 
 
-All allocations and deallocations are successful.
-Average allocation time is very low.
-Maximum allocated size is 32 bytes.
-No failed allocation requests.
+- All allocations and deallocations are successful.
+- Average allocation time is very low.
+- Maximum allocated size is 32 bytes.
+- No failed allocation requests.
 
 
 **Large Pool, Same Size Max Block Size as Pool (Scenario 10):**
 
 
-Pool size: 1024 * 1024 * 1024 (1 GB)
-Max block size: 1024 * 1024 (1 MB)
-Number of requests: 100
+- Pool size: 1024 * 1024 * 1024 (1 GB)
+- Max block size: 1024 * 1024 (1 MB)
+- Number of requests: 100
 
 
 **Outcome:**
 
 
-All allocations and deallocations are successful.
-Average allocation time is moderate.
-Maximum allocated size is 1048130 bytes, close to the pool size.
-No failed allocation requests.
+- All allocations and deallocations are successful.
+- Average allocation time is moderate.
+- Maximum allocated size is 1048130 bytes, close to the pool size.
+- No failed allocation requests.
