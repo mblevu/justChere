@@ -25,7 +25,7 @@ This guide outlines the steps to effectively test the memory manager program . T
 * *Mixed Scenarios*: Combine different pool sizes, maximum block sizes, and request numbers in a single test run.
 
 
-* number of test scenarios *
+*number of test scenarios*
 
 `#define NUM_TEST_SCENARIOS 10`
 
