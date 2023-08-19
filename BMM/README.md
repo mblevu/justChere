@@ -1,7 +1,18 @@
 # Bitnine Memory Manager "clone"
 
 
-**Initialize Memory Manager:**
+Memory Management is part of complex softwares. Memory Manager is given a fixed size
+memory block called memory pool. Different modules in that software request different-sized
+blocks of memory from Manager. Manager uses first-fit algorithm to get requested blocks from
+memory pool. Upon finding the first-fit block from memory pool, Manager passes it to the
+requesting module. When a module does not need the allocated memory anymore, the memory
+block is returned to Manager so that Manager merges it back into the memory pool. This is done
+so that Manager can allocate it to some other module on request.
+
+
+
+[**Initialize Memory Manager:**](https://github.com/kintokeanu/justChere/blob/main/BMM/initialize_memory.c)
+
 
 
 - Allocate memory for the MemoryManager struct.
@@ -9,7 +20,7 @@
 - Initialize the first block of the memory pool as the initial free block.
 
 
-**Allocate Memory:**
+[**Allocate Memory:**](https://github.com/kintokeanu/justChere/blob/main/BMM/allocate_memory.c)
 
 
 - When a memory allocation is requested, check if the inputs are valid.
@@ -19,7 +30,7 @@
 - Return a pointer to the allocated memory region (skip MemoryBlock overhead).
 
 
-**Deallocate Memory:**
+[**Deallocate Memory:**](https://github.com/kintokeanu/justChere/blob/main/BMM/deallocate_memory.c)
 
 
 - When memory is deallocated, retrieve the MemoryBlock structure associated with the provided pointer.
@@ -27,15 +38,16 @@
 - Mark the block as unallocated.
 
 
-**First Fit Algorithm:**
+[**First Fit Algorithm:**](https://github.com/kintokeanu/justChere/blob/main/BMM/first_fit_algorithm.c)
 
 
 - Traverse the memory pool, block by block, until a suitable free block is found.
 - The block should have enough size to accommodate the requested memory plus the MemoryBlock overhead.
 - Return a pointer to the found block.
-![First fit algorithm](ff.png)
+![First fit algorithm](images/firstfit_algorithm.png)
 
-**Run Test Scenario:**
+
+[**Run Test Scenario:**](https://github.com/kintokeanu/justChere/blob/main/BMM/test_bed.c)
 
 
 - For each test scenario, initialize a random number generator with a seed.
@@ -48,13 +60,13 @@
 - Print statistics for the test scenario.
 
 
-**Free Memory Manager:**
+[**Free Memory Manager:**](https://github.com/kintokeanu/justChere/blob/main/BMM/free_memory.c)
 
 
 - Free the memory pool using free.
 - Free the MemoryManager struct.
 
-![Flow](image-1.png)
+![Flow](images/flowchart.png)
 
 # Compilation instructions
 
@@ -173,7 +185,7 @@ I will provide a comprehensive explanation of the design choices, algorithms, an
 - The First Fit algorithm is employed for allocating memory blocks.
 - When an allocation request is made, the memory manager searches for the first available free block that can accommodate the requested size.
 - This minimizes fragmentation and helps in efficient utilization of memory.
-![First fit algorithm](image.png)
+![First fit algorithm](images/firstfit.png)
 
 
 **Deallocation Algorithm:**

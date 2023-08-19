@@ -1,6 +1,7 @@
 #include "memory_manager.h"
 
 
+/* number of test scenarios */
 #define NUM_TEST_SCENARIOS 10
 
 
@@ -18,21 +19,29 @@ TestScenario test_scenarios[NUM_TEST_SCENARIOS] = {
 };
 
 
+/**
+ * main- Entry point of the program.
+ *
+ * This function initializes a memory manager, runs a series of test scenarios,
+ * and frees the memory manager after each scenario.
+ *
+ * Return: 0 on successful execution.
+ */
 int main()
 {
-	int i;
+    int i;
 
-	srand(time(NULL));
+    srand(time(NULL));
 
-	for (i = 0; i < NUM_TEST_SCENARIOS; ++i)
-	{
-		MemoryManager *manager = init_memory_manager(test_scenarios[i].pool_size);
+    for (i = 0; i < NUM_TEST_SCENARIOS; ++i)
+    {
+        MemoryManager *manager = init_memory_manager(test_scenarios[i].pool_size);
 
-		run_test_scenario(manager, test_scenarios[i]);
+        run_test_scenario(manager, test_scenarios[i]);
 
-		free_memory_manager(manager);
-		printf("\n");
-	}
+        free_memory_manager(manager);
+        printf("\n");
+    }
 
-	return (0);
+    return (0);
 }

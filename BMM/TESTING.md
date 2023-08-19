@@ -24,13 +24,25 @@ This guide outlines the steps to effectively test the memory manager program . T
 * *Edge Cases*: Test with extreme values and edge cases, such as zero-sized allocations.
 * *Mixed Scenarios*: Combine different pool sizes, maximum block sizes, and request numbers in a single test run.
 
+    {1048576, 128, 100},                             /*Small pool, small max block size*/
+    {1024 * 1024 * 1024, 2 * 1024 * 1024, 100},      /*Large pool, large max block size*/
+    {1024 * 1024 * 1024, 0, 100},                    /*Large pool, variable max block size*/
+    {1048576, 0, 100},                                /*Small pool, variable max block size*/
+    {1024 * 1024, 64, 1000},                          /*Medium pool, medium max block size*/
+    {1048576, 1024, 100},                             /*Small pool, large max block size*/
+    {1024, 512, 10},                                 /*Very small pool, medium max block size*/
+    {1024 * 1024, 0, 1000},                           /*Medium pool, variable max block size*/
+    {1024, 16, 10000},                                /*Very small pool, very small max block size*/
+    {1024 * 1024 * 1024, 1024 * 1024, 100}           /*Large pool, same size max block size as pool*/
+
 
 # Testing Steps:
+
 
 *Follow these steps to test the memory manager program effectively:*
 
 
-1. **Compile the Program:** Make sure you have compiled the program successfully using the provided compilation instructions.
+1. **Compile the Program:** Make sure you have compiled the program successfully using the provided [compilation instructions](https://github.com/kintokeanu/justChere/blob/main/BMM/README.md).
 
 2. **Run the Program:** Execute the program by running the compiled executable: `./memory_manager`.
 
@@ -39,6 +51,50 @@ This guide outlines the steps to effectively test the memory manager program . T
 ⋅⋅⋅**Identify Anomalies:** Look for anomalies in the output, such as unexpected allocation failures, incorrect statistics, or abnormal behavior.⋅⋅
 
 ⋅⋅⋅**Debugging:** If you encounter issues or unexpected results, use debugging tools (e.g., gdb) to identify and fix the problem areas in your code.⋅⋅
+
+
+└─$ `gcc -g -Wall -Wextra -Werror -pedantic  -std=gnu89 *.c -o memory_manager` 
+
+
+└─$ `gdb ./memory_manager`   
+
+GNU gdb (Debian 13.2-1) 13.2
+Copyright (C) 2023 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+--Type <RET> for more, q to quit, c to continue without paging--c
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./memory_manager...
+(gdb) `run`
+Starting program: /home/levu/justChere/BMM/memory_manager 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+Test scenario
+- Pool size: 1048576, Max block size: 128
+- Total allocations: 100
+- Total deallocations: 1
+- Average allocation time: 0.000001 seconds
+- Average deallocation time: 0.000001 seconds
+- Maximum allocated size: 142 bytes
+- Minimum allocated size: 2 bytes
+- Average allocated size: 64.84 bytes
+- Total failed allocation requests: 0
+
+*Use valgrind to check for memory leaks*
+
+
+└─$ `valgrind ./memory_manager`
+![Valgrind](images/valgrind.png)
 
 ⋅⋅⋅**Re-test:** After making changes to the code, re-run the program and re-test the affected scenarios.⋅⋅
 
@@ -54,7 +110,8 @@ This guide outlines the steps to effectively test the memory manager program . T
 # Testbed
 
 
-The run_test_scenario function performs a series of memory allocations and deallocations based on the specified test scenario. It collects various statistics and performance metrics during this process and then prints the results using the print_statistics function
+The [run_test_scenario](https://github.com/kintokeanu/justChere/blob/main/BMM/test_bed.c) function performs a series of memory allocations and deallocations based on the specified test scenario. It collects various statistics and performance metrics during this process and then prints the results using the [print_statistics](https://github.com/kintokeanu/justChere/blob/main/BMM/print_statistics.c) function.
+
 
 
 - The function initializes various variables to keep track of statistics related to allocations and deallocations.
@@ -81,7 +138,7 @@ The run_test_scenario function performs a series of memory allocations and deall
 # Test Scenarios
 
 
-**Test scenario**
+**Test scenario 1 /*Small pool, small max block size*/**
 
 
 - Pool size: 1048576, Max block size: 128
@@ -95,7 +152,7 @@ The run_test_scenario function performs a series of memory allocations and deall
 - Total failed allocation requests: 0
 
 
-**Test scenario**
+**Test scenario 2 /*Large pool, large max block size*/**
 
 
 - Pool size: 1073741824, Max block size: 2097152
@@ -109,7 +166,7 @@ The run_test_scenario function performs a series of memory allocations and deall
 - Total failed allocation requests: 0
 
 
-**Test scenario**
+**Test scenario 3 /*Large pool, variable max block size*/**
 
 
 - Pool size: 1073741824, Max block size: 0
@@ -123,7 +180,7 @@ The run_test_scenario function performs a series of memory allocations and deall
 - Total failed allocation requests: 0
 
 
-**Test scenario**
+**Test scenario 4 /*Small pool, variable max block size*/**
 
 
 - Pool size: 1048576, Max block size: 0
@@ -137,7 +194,7 @@ The run_test_scenario function performs a series of memory allocations and deall
 - Total failed allocation requests: 0
 
 
-**Test scenario**
+**Test scenario 5 /*Medium pool, medium max block size*/**
 
 
 - Pool size: 1048576, Max block size: 64
@@ -151,7 +208,7 @@ The run_test_scenario function performs a series of memory allocations and deall
 - Total failed allocation requests: 0
 
 
-**Test scenario**
+**Test scenario 6 /*Small pool, large max block size*/**
 
 
 - Pool size: 1048576, Max block size: 1024
@@ -165,7 +222,7 @@ The run_test_scenario function performs a series of memory allocations and deall
 - Total failed allocation requests: 0
 
 
-**Test scenario**
+**Test scenario 7 /*Very small pool, medium max block size*/**
 
 
 - Pool size: 1024, Max block size: 512
@@ -179,7 +236,7 @@ The run_test_scenario function performs a series of memory allocations and deall
 - Total failed allocation requests: 4
 
 
-**Test scenario**
+**Test scenario 8 /*Medium pool, variable max block size*/**
 
 
 - Pool size: 1048576, Max block size: 0
@@ -193,7 +250,7 @@ The run_test_scenario function performs a series of memory allocations and deall
 - Total failed allocation requests: 0
 
 
-**Test scenario**
+**Test scenario 9 /*Very small pool, very small max block size*/**
 
 
 - Pool size: 1024, Max block size: 16
@@ -207,7 +264,7 @@ The run_test_scenario function performs a series of memory allocations and deall
 - Total failed allocation requests: 9957
 
 
-**Test scenario**
+**Test scenario 10 /*Large pool, same size max block size as pool*/**
 
 
 - Pool size: 1073741824, Max block size: 1048576
