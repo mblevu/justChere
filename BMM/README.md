@@ -74,26 +74,21 @@ Install Homebrew: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/
 
 **Windows**:
 
-Install Windows Subsystem for Linux (WSL):
+- *Install MinGW-W64:* MinGW-W64 provides a native Windows port of GCC.
 
-Enables a Linux environment on Windows.
-Follow the instructions: Install WSL
-Install GCC, GDB, and Valgrind:
+- Download MinGW-W64 installer from: [MinGW-W64](https://www.mingw-w64.org/downloads/)
+- Choose your architecture (32-bit or 64-bit) and version.
+- Install MinGW-W64 with default settings.
 
-Open WSL terminal.
-Run: sudo apt-get update
-Install GCC: sudo apt-get install gcc
-Install GDB: sudo apt-get install gdb
-Install Valgrind: sudo apt-get install valgrind
-Install a Text Editor:
+- *Install GDB:*
 
-You can use the built-in Nano or install your preferred text editor.
-Setting Up the C Environment:
+- Download GDB binaries from: [GDB for Windows](https://rpg.hamsterrepublic.com/ohrrpgce/GDB_on_Windows)
+- Add the GDB folder to your system's PATH environment variable.
 
-Write Code:
+- *Install Valgrind (Optional):*
 
-Use a text editor or IDE to write your C code files (e.g., memory_manager.c, main.c).
-Compilation:
+- Download Valgrind for Windows from: [Valgrind Windows](https://valgrind.org/downloads/current.html)
+- Follow the instructions for installation.
 
 
 **Open the terminal in the code directory.**
@@ -104,13 +99,16 @@ Compilation:
 
 *Run your program:* `./memory_manager`
 
+`memory_manager` *on windows*
+
 
 The program will execute a series of test scenarios with different pool sizes, maximum block sizes, and numbers of requests. The output will display statistics for each test scenario, including total allocations, total deallocations, average allocation time, average deallocation time, maximum allocated size, minimum allocated size, average allocated size, and total failed allocation requests.
 
 Open the main.c file to adjust different cases as you wish.
 
 
-- *Debugging:*
+**Debugging:**
+
 
 *Debug with GDB:* `gdb ./memory_manager`
 
