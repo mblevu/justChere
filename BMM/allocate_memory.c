@@ -28,27 +28,36 @@ void *allocate_memory(MemoryManager *manager, size_t size)
 		return (NULL);
 	}
 
-	/* use first fit algorithm to find available block*/
+	/* use first fit algorithm to find available block */
 	block = first_fit(manager, size);
 
 	if (block != NULL)
 	{
-		block->is_allocated = true;
-		block->size = size; /* set size of allocated block*/
+		set_allocated(block, true);
+		set_block_size(block, size);
 		remaining_size = block->size - size - sizeof(MemoryBlock);
 
-		/* Create a new block if remaining space is enough for a new MemoryBlock */
-		if (remaining_size >= sizeof(MemoryBlock))
+		/* Handle remaining space */
+		if (remaining_size > 0)
 		{
-			next_block = (MemoryBlock *)((char *)block + sizeof(MemoryBlock) + size);
-			next_block->size = remaining_size;
-			next_block->is_allocated = false;
-
+			if (remaining_size < sizeof(MemoryBlock))
+			{
+				block->size += remaining_size;
+			}
+			else
+			{
+				next_block = (MemoryBlock *)((char *)block + sizeof(MemoryBlock) + size);
+				next_block->size = remaining_size;
+				next_block->is_allocated = false;
+			}
 		}
+
+		/* Update pool_size */
+		manager->pool_size -= size + sizeof(MemoryBlock);
+
 		/* Return a pointer to the allocated memory (skip the MemoryBlock header) */
-		return ((void *)(block + 1)); /*return pointer to allocated memory*/
+		return ((void *)(block + 1));
 	}
 
 	return (NULL); /*allocation failed*/
-
 }

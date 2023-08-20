@@ -1,5 +1,7 @@
 # Bitnine Memory Manager "clone"
 
+In this project, I have implemented a comprehensive, robust and efficient memory manager in C that has been tested with
+different scenarios. Please note that this can be expanded beyond limits.
 
 Memory Management is part of complex softwares. Memory Manager is given a fixed size
 memory block called memory pool. Different modules in that software request different-sized
@@ -9,6 +11,119 @@ requesting module. When a module does not need the allocated memory anymore, the
 block is returned to Manager so that Manager merges it back into the memory pool. This is done
 so that Manager can allocate it to some other module on request.
 
+The code in this project complies with ANSI C standard.
+
+# Prerequisites:
+
+- GCC (GNU Compiler Collection): For compiling C code.
+- GDB (GNU Debugger): For debugging and analyzing code.
+- Valgrind: For memory analysis and leak detection (optional but recommended).
+- Text Editor or IDE: For writing and editing C code.
+
+
+Setting Up C Environment on Different Operating Systems:
+
+
+**Linux:**
+
+
+**Install GCC and GDB:**
+
+
+Open a terminal.
+
+- *Run the command*: `sudo apt-get update`
+- *Install GCC*: `sudo apt-get install gcc`
+- *Install GDB*: `sudo apt-get install gdb`
+
+
+**Install Valgrind (Optional):**
+
+- *Install Valgrind*: `sudo apt-get install valgrind`
+
+
+Text Editor:
+
+Popular editors include Vim, Nano, and VSCode.
+
+
+**macOS:**
+
+
+Install Command Line Tools:
+
+
+Open Terminal.
+
+- Run the command: `xcode-select --install`
+
+Install Homebrew (Optional):
+
+Homebrew simplifies package installations.
+
+Install Homebrew: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+
+**Install GCC and GDB:**
+
+- Run: `brew install gcc gdb`
+
+**Install Valgrind (Optional):**
+
+- *Install Valgrind:* `brew install valgrind`
+
+
+**Windows**:
+
+Install Windows Subsystem for Linux (WSL):
+
+Enables a Linux environment on Windows.
+Follow the instructions: Install WSL
+Install GCC, GDB, and Valgrind:
+
+Open WSL terminal.
+Run: sudo apt-get update
+Install GCC: sudo apt-get install gcc
+Install GDB: sudo apt-get install gdb
+Install Valgrind: sudo apt-get install valgrind
+Install a Text Editor:
+
+You can use the built-in Nano or install your preferred text editor.
+Setting Up the C Environment:
+
+Write Code:
+
+Use a text editor or IDE to write your C code files (e.g., memory_manager.c, main.c).
+Compilation:
+
+
+**Open the terminal in the code directory.**
+
+- *Compile using GCC*: `gcc -Wall -Wextra -Werror -pedantic -std=gnu89 *.c -o memory_manager`
+
+- *Execution:*
+
+*Run your program:* `./memory_manager`
+
+
+The program will execute a series of test scenarios with different pool sizes, maximum block sizes, and numbers of requests. The output will display statistics for each test scenario, including total allocations, total deallocations, average allocation time, average deallocation time, maximum allocated size, minimum allocated size, average allocated size, and total failed allocation requests.
+
+Open the main.c file to adjust different cases as you wish.
+
+
+- *Debugging:*
+
+*Debug with GDB:* `gdb ./memory_manager`
+
+Set breakpoints, analyze variables, and execute line by line.
+
+
+**Memory Analysis (Optional):**
+
+- *Use Valgrind for memory analysis:* `valgrind ./memory_manager`
+
+
+
+# Implementation
 
 
 [**Initialize Memory Manager:**](https://github.com/kintokeanu/justChere/blob/main/BMM/initialize_memory.c)
@@ -67,38 +182,6 @@ so that Manager can allocate it to some other module on request.
 - Free the MemoryManager struct.
 
 ![Flow](images/flowchart.png)
-
-# Compilation instructions
-
-
-**Memory Manager Test Run Instructions**
-
-
-Follow these instructions to compile and run the program, as well as interpret the output statistics.
-
-
-**Compilation:**
-
-
-*Open a terminal window and Navigate to the project directory using the cd command:*
-
-
-`cd path/to/project/directory`
-
-
-*Compile the code using the following command:*
-
-
-└─$ `gcc -Wall -Wextra -Werror -pedantic  -std=gnu89 *.c -o memory_manager`
-
-
-*Running the Program:*
-
-
-└─$ `./memory_manager` 
-
-
-The program will execute a series of test scenarios with different pool sizes, maximum block sizes, and numbers of requests. The output will display statistics for each test scenario, including total allocations, total deallocations, average allocation time, average deallocation time, maximum allocated size, minimum allocated size, average allocated size, and total failed allocation requests.
 
 
 # Interpreting Output Statistics:
@@ -187,6 +270,20 @@ I will provide a comprehensive explanation of the design choices, algorithms, an
 - This minimizes fragmentation and helps in efficient utilization of memory.
 ![First fit algorithm](images/firstfit.png)
 
+Here are some observations from the results from both the best_fit and first_fit algorithms for different test scenarios.:
+
+1. *Average Allocation Time*: The average allocation time for both algorithms is very low in most cases, which is a good indication of efficient memory allocation.
+
+2. *Average Deallocation Time*: The average deallocation time is also low for both algorithms, suggesting efficient memory deallocation.
+
+3. *Maximum Allocated Size*: The maximum allocated size varies between scenarios and algorithms. It's expected that the maximum allocated size is close to the specified maximum block size in the scenarios.
+
+4. *Minimum Allocated Size*: The minimum allocated size also varies. It should be at least the size of a memory block header.
+
+5. *Average Allocated Size*: The average allocated size varies between scenarios and algorithms. It should reflect the overall average size of allocations.
+
+6. *Total Failed Allocation Requests*: It's great to see that there are no failed allocation requests in the provided results. Both algorithms seem to be able to allocate memory without issues.
+
 
 **Deallocation Algorithm:**
 
@@ -217,3 +314,4 @@ I will provide a comprehensive explanation of the design choices, algorithms, an
 
 
 The memory manager's design is focused on achieving efficient memory utilization, fast allocation, and accurate deallocation. By using a memory pool and the First Fit algorithm, the memory manager optimizes memory usage and reduces fragmentation. The use of MemoryBlock metadata ensures effective tracking of block status and size, contributing to the overall robustness of the system. This design provides a strong foundation for managing memory in resource-constrained environments.
+
