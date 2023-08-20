@@ -28,6 +28,8 @@
 #define NUM_TEST_SCENARIOS 10
 
 
+#define SPECIAL_VALUE NULL
+
 
 /**
  * TestScenario - Define a structure to hold the parameters of a test scenario

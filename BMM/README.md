@@ -126,37 +126,95 @@ Set breakpoints, analyze variables, and execute line by line.
 
 [**Initialize Memory Manager:**](https://github.com/kintokeanu/justChere/blob/main/BMM/initialize_memory.c)
 
+**Input**
+1. *pool size*: The size of the memory pool to be allocated.
+
+**Flow**
+1. Allocate memory for the MemoryManager structure using calloc.
+2. Check if the memory allocation for the manager structure succeeded. If not, return NULL.
+3. Check if the pool size is valid (not zero and not exceeding SIZE_MAX). If not, free the previously allocated memory and return NULL.
+4. Allocate memory for the actual memory pool using calloc.
+5. Check if the memory allocation for the memory pool succeeded. If not, free the previously allocated memory and return NULL.
+6. Initialize the pool_size of the MemoryManager structure with the provided pool_size.
+7. Call the initialize_first_block function to initialize the first memory block in the memory pool.
+8. Return the initialized MemoryManager structure.
+
+**Outputs**
+1. A pointer to the initialized MemoryManager struct
+2. NULL if initialization fails.
 
 
-- Allocate memory for the MemoryManager struct.
-- Allocate memory for the memory pool using malloc.
-- Initialize the first block of the memory pool as the initial free block.
 
 
 [**Allocate Memory:**](https://github.com/kintokeanu/justChere/blob/main/BMM/allocate_memory.c)
 
 
-- When a memory allocation is requested, check if the inputs are valid.
-- Ensure there is enough space in the memory pool for the requested size plus the MemoryBlock overhead.
-- Use the first_fit algorithm to find the first available block that can accommodate the requested size.
-- If found, mark the block as allocated, update its size, and possibly split the block if there's remaining space.
-- Return a pointer to the allocated memory region (skip MemoryBlock overhead).
+**Inputs**
+1. *manager***: A pointer to the MemoryManager object that manages the memory pool.
+2. *size*: The size of the memory to be allocated.
+
+**Flow**
+1. Check for invalid inputs: If manager is NULL or size is 0, return NULL.
+2. Check if there is enough space in the memory pool: If size + sizeof(MemoryBlock) is greater than manager->pool_size, return NULL.
+3. Use the first fit algorithm to find an available block in the memory pool.
+- If a block is found:
+- Set the block as allocated.
+- Update the block size.
+- Calculate the remaining size of the block.
+- Handle the remaining space:
+- If the remaining size is less than the size of a MemoryBlock, add it to the current block.
+- Otherwise, create a new block after the allocated block and update its size and allocation status.
+- Update the pool size by subtracting the allocated size and the size of a MemoryBlock.
+- Return a pointer to the allocated memory (skip the MemoryBlock header).
+- If no block is found, return NULL.
+
+**Outputs**
+1. A pointer to the allocated memory if successful.
+2. NULL if the allocation fails.
+
 
 
 [**Deallocate Memory:**](https://github.com/kintokeanu/justChere/blob/main/BMM/deallocate_memory.c)
 
+**Inputs**
+1. *manager:* A pointer to the MemoryManager structure that manages the allocated memory blocks.
+2. *ptr:* A pointer to the memory block that needs to be deallocated.
 
-- When memory is deallocated, retrieve the MemoryBlock structure associated with the provided pointer.
-- Check if the block is within the memory pool's boundaries and if it's actually allocated.
-- Mark the block as unallocated.
+**Flow**
+1. Check if manager and ptr are not NULL using the assert function.
+2. Retrieve the MemoryBlock structure associated with ptr using the get_memory_block function.
+3. If the retrieved block is not within the range managed by the manager, return.
+4. If the block is already deallocated, return.
+5. Set the is_allocated flag of the block to false using the set_is_allocated_false function.
+
+**Outputs**
+1. None. The function does not return any value.
+
 
 
 [**First Fit Algorithm:**](https://github.com/kintokeanu/justChere/blob/main/BMM/first_fit_algorithm.c)
 
+**Inputs**
+1. *manager*: A pointer to a MemoryManager struct that contains the memory pool and other information.
+2. *size*: The requested size of the memory block to be allocated.
 
-- Traverse the memory pool, block by block, until a suitable free block is found.
-- The block should have enough size to accommodate the requested memory plus the MemoryBlock overhead.
-- Return a pointer to the found block.
+**Flow**
+1. Check if the manager is NULL, the memory pool is NULL, the requested size is 0, or the requested size is greater than the pool size. If any of these conditions are true, return NULL.
+2. Calculate the end address of the memory pool.
+3. Set the current block pointer to the start of the memory pool.
+4. Check if the current block is NULL. If so, return NULL.
+5. Iterate through the memory blocks in the memory pool until the end address is reached.
+6. If the current block is not allocated and its size is greater than or equal to the requested size:
+- If the remaining size after allocating the requested size is large enough to accommodate a new block, split the current block into two blocks.
+- Set the size and allocation status of the current block and the new block.
+- Return a pointer to the data part of the new block.
+- Otherwise, set the allocation status of the current block and return a pointer to the data part of the current block.
+7. Move the current block pointer to the next block by adding the size of the current block and the overhead to the current block pointer.
+8. If no suitable memory block is found, return NULL.
+
+**Outputs**
+1. A pointer to the first available memory block that can accommodate the requested size, or NULL if no suitable block is found.
+
 ![First fit algorithm](images/firstfit_algorithm.png)
 
 To use the best_fit algorithm for memory allocation, you can replace the corresponding parts in [**Allocate Memory:**](https://github.com/kintokeanu/justChere/blob/main/BMM/allocate_memory.c)
@@ -169,22 +227,42 @@ This way, you'll be able to compare the results of the first_fit and best_fit al
 
 [**Run Test Scenario:**](https://github.com/kintokeanu/justChere/blob/main/BMM/test_bed.c)
 
+**Inputs**
+1. *manager*: A pointer to the memory manager.
+2. *scenario*: The test scenario containing the number of requests and the maximum block size.
 
-- For each test scenario, initialize a random number generator with a seed.
-- Allocate an array of pointers to store allocated memory pointers.
-- Loop through the specified number of allocation and deallocation requests.
-- For each allocation, use random values for block size within the specified range.
-- If allocation is successful, update statistics and allocated memory pointers.
-- For each deallocation, randomly select an allocated memory pointer and deallocate it.
-- Calculate and store allocation and deallocation times, sizes, and other statistics.
-- Print statistics for the test scenario.
+**Flow**
+1. Initialize variables to keep track of statistics.
+2. Seed the random number generator.
+3. Initialize the allocation_pointers array.
+4. Iterate over the specified number of requests.
+5. Determine the block size based on the maximum block size in the scenario.
+6. Allocate memory if the block size is greater than 0.
+7. Update statistics based on allocation success or failure.
+8. Deallocate all allocated pointers.
+9. Calculate the average allocated size.
+10. Print the statistics for the current test scenario.
+
+**Outputs**
+1. Statistics for the current test scenario, including total allocations, total deallocations, allocation time, deallocation time, max allocated size, min allocated size, average allocated size, and total failed allocations.
+
 
 
 [**Free Memory Manager:**](https://github.com/kintokeanu/justChere/blob/main/BMM/free_memory.c)
 
+**Inputs**
+1. *manager*: A pointer to a MemoryManager object.
 
-- Free the memory pool using free.
-- Free the MemoryManager struct.
+**Flow**
+1. Check if the manager pointer is NULL.
+2. If the manager pointer is NULL, return without doing anything.
+3. Free the memory pool associated with the manager by calling free() on manager->memory_pool.
+4. Free the manager object itself by calling free() on manager.
+
+**Outputs**
+1. None. The function does not return any value.
+
+
 
 ![Flow](images/flowchart.png)
 
@@ -223,19 +301,34 @@ Test scenario
 - Total failed allocation requests: 0
 
 
-In this example, the program executed a test scenario with a *pool size of 1048576 bytes* and a *maximum block size of 128 bytes*. It performed 1*00 successful allocations* and *1 deallocation*. The *average allocation time was 0.000004 seconds*, and the *average deallocation time was 0.000003 seconds* which is pretty quick. The *maximum allocated size was 140 bytes*, the *minimum allocated size was 2 bytes*, and the *average allocated size was 61.67 bytes*. There were no failed allocation requests.
+In this example, the program executed a test scenario with a *pool size of 1048576 bytes* and a *maximum block size of 128 bytes*. It performed *100 successful allocations* and *1 deallocation*. The *average allocation time was 0.000004 seconds*, and the *average deallocation time was 0.000003 seconds* which is pretty quick. The *maximum allocated size was 140 bytes*, the *minimum allocated size was 2 bytes*, and the *average allocated size was 61.67 bytes*. There were no failed allocation requests.
+
+Another case where all allocations will be deallocated
+
+Test scenario
+- Pool size: 1048576, Max block size: 128
+- Total allocations: 100, - Total deallocations: 100
+- Average allocation time: 0.000003 seconds
+- Average deallocation time: 0.000003 seconds
+- Maximum allocated size: 144 bytes
+- Minimum allocated size: 3 bytes
+- Average allocated size: 69.21 bytes
+- Total failed allocation requests: 0
+
+In this It performed *100 successful allocations* and *100 deallocation*.
 
 
 # Design
-
-I will provide a comprehensive explanation of the design choices, algorithms, and data structures used to build the memory manager. Additionally, I'll discuss the rationale behind these decisions and how they contribute to the overall functionality and efficiency of the memory manager.
 
 
 **Design Overview:**
 
 
 - The memory manager is designed to efficiently allocate and deallocate blocks of memory from a fixed-size memory pool.
-- The key goals of the design include minimizing fragmentation, providing fast allocation and deallocation, and accommodating different block sizes.
+- The key goals of the design include;
+    - minimizing fragmentation
+    - providing fast allocation and deallocation
+    - accommodating different block sizes.
 
 
 **Memory Pool:**
@@ -247,23 +340,27 @@ I will provide a comprehensive explanation of the design choices, algorithms, an
 - The metadata helps in keeping track of whether a block is allocated or free.
 
 
-**MemoryBlock Structure:**
+# Structure:
 
+**MemoryBlock Struct**
 
-*The MemoryBlock structure includes two main fields:*
+MemoryBlock is a struct that represents each block in the memory pool, with fields for the size of the memory block and whether it is allocated or not.
 
 - *size*: The size of the memory block.
 - *is_allocated*: A flag indicating whether the block is currently allocated or free.
 
 
-**MemoryManager Structure:**
+**MemoryManager Struct:**
 
-- The MemoryManager structure is used to manage the memory pool and other related data. It includes:
+ MemoryManager is used to define a memory block struct, which includes a pointer to the memory pool and the size of the memory pool. 
 
 
 + *memory_pool*: A pointer to the memory pool.
 + *pool_size*: The total size of the memory pool.
 
+**TestScenario Struct:**
+
+TestScenario is used to hold the parameters of a test scenario, including the size of the memory pool, the maximum block size for allocations, and the number of allocation/deallocation requests.
 
 # Algorithms:
 
@@ -310,6 +407,8 @@ Here are some observations from the results from both the best_fit and first_fit
 - *Memory Pool*: Using a pre-allocated memory pool reduces the overhead of frequent system calls to allocate and deallocate memory. This improves overall efficiency and reduces memory fragmentation.
 
 - *First Fit Allocation*: The First Fit algorithm is simple and fast, making it a good choice for this implementation. It balances between allocating the requested size and minimizing fragmentation.
+
+- *Best Fit Allocation*: This is a reliable algorthm too but a bit complex but ive implemented it just incase.
 
 - *MemoryBlock Metadata*: The inclusion of metadata before each memory block helps in efficiently managing and tracking block status. This metadata is crucial for accurate deallocation and future allocations.
 
