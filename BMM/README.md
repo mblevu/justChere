@@ -159,6 +159,13 @@ Set breakpoints, analyze variables, and execute line by line.
 - Return a pointer to the found block.
 ![First fit algorithm](images/firstfit_algorithm.png)
 
+To use the best_fit algorithm for memory allocation, you can replace the corresponding parts in [**Allocate Memory:**](https://github.com/kintokeanu/justChere/blob/main/BMM/allocate_memory.c)
+function with the following:
+
+`block = best_fit(manager, block_size);`
+
+This way, you'll be able to compare the results of the first_fit and best_fit algorithms by running your test scenarios. Keep in mind that the performance and behavior of different memory allocation strategies can vary depending on the specific use case and memory allocation patterns.
+
 
 [**Run Test Scenario:**](https://github.com/kintokeanu/justChere/blob/main/BMM/test_bed.c)
 
