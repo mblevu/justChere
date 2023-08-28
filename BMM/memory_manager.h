@@ -139,4 +139,5 @@ void print_statistics(TestScenario scenario, size_t total_allocations, size_t to
                       size_t max_allocated_size, size_t min_allocated_size, double average_allocated_size, size_t total_failed_allocations);
 
 
+
 #endif /* MEMORY_MANAGER_H */

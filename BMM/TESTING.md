@@ -24,6 +24,66 @@ This guide outlines the steps to effectively test the memory manager program . T
 * *Edge Cases*: Test with extreme values and edge cases, such as zero-sized allocations.
 * *Mixed Scenarios*: Combine different pool sizes, maximum block sizes, and request numbers in a single test run.
 
+# Scenarios
+
+Small pool, small max block size:
+- Pool size: 1 MB (Megabyte)
+- Max block size: 128 KB (Kilobyte)
+- Number of iterations: 100
+
+
+Large pool, large max block size:
+- Pool size: 1 GB (Gigabyte)
+- Max block size: 2 MB (Megabyte)
+- Number of iterations: 100
+
+
+Large pool, variable max block size:
+- Pool size: 1 GB (Gigabyte)
+- Max block size: Variable
+- Number of iterations: 100
+
+
+Small pool, variable max block size:
+- Pool size: 1 MB (Megabyte)
+- Max block size: Variable
+- Number of iterations: 100
+
+
+Medium pool, medium max block size:
+- Pool size: 1 MB (Megabyte)
+- Max block size: 64 KB (Kilobyte)
+- Number of iterations: 1000
+
+
+Small pool, large max block size:
+- Pool size: 1 MB (Megabyte)
+- Max block size: 1024 KB (Kilobyte)
+- Number of iterations: 100
+
+
+Very small pool, medium max block size:
+- Pool size: 1 KB (Kilobyte)
+- Max block size: 512 B (Byte)
+- Number of iterations: 10
+
+
+Medium pool, variable max block size:
+- Pool size: 1 MB (Megabyte)
+- Max block size: Variable
+- Number of iterations: 1000
+
+Very small pool, very small max block size:
+- Pool size: 1 KB (Kilobyte)
+- Max block size: 16 B (Byte)
+- Number of iterations: 10000
+
+
+Large pool, same size max block size as pool:
+- Pool size: 1 GB (Gigabyte)
+- Max block size: 1 MB (Megabyte)
+- Number of iterations: 100
+
 
 *number of test scenarios*
 
@@ -52,6 +112,7 @@ This guide outlines the steps to effectively test the memory manager program . T
     {1024 * 1024 * 1024, 1024 * 1024, 100}           /*Large pool, same size max block size as pool*/
 
 `}`
+
 
 # Testing Steps:
 
