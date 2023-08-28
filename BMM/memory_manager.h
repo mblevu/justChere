@@ -1,7 +1,6 @@
 #ifndef MEMORY_MANAGER_H
 #define MEMORY_MANAGER_H
 
-
 /* libraries used */
 #include <stdlib.h>
 #include <stdio.h>
