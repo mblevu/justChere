@@ -13,6 +13,7 @@ so that Manager can allocate it to some other module on request.
 
 The code in this project complies with ANSI C standard.
 
+
 # Jump straight to the point
 ```
 $ make
