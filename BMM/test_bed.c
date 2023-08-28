@@ -5,11 +5,15 @@
  * run_test_scenario - This function runs a test scenario for a memory manager.
  *
  * The function takes a MemoryManager object and a TestScenario object as parameters.
- * It initializes variables to keep track of various statistics related to memory allocation and deallocation.
- * It then iterates over a specified number of requests, randomly determining the block size and allocating memory if the block size is greater than 0.
+ * It initializes variables to keep track of various statistics related to memory
+ * allocation and deallocation.
+ * It then iterates over a specified number of requests, randomly determining the
+ * block size and allocating memory if the block size is greater than 0.
  * It updates the statistics based on the success or failure of the allocation.
- * After the allocations, it randomly selects a pointer from the allocated pointers array and deallocates the memory.
- * Finally, it calculates the average allocated size and prints the statistics for the current test scenario.
+ * After the allocations, it randomly selects a pointer from the allocated
+ * pointers array and deallocates the memory.
+ * Finally, it calculates the average allocated size and prints the statistics
+ * for the current test scenario.
  *
  * @manager: A pointer to a MemoryManager object.
  * @scenario: A TestScenario object that specifies the number of requests and the maximum block size.

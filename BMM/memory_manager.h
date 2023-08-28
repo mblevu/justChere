@@ -72,26 +72,31 @@ typedef struct MemoryBlock
 
 
 /**
- * Function prototypes
+ * Function prototypes/Main API(s)
  */
 
 /* Function to initialize memory manager */
 MemoryManager *init_memory_manager(size_t pool_size);
 
-/* Function to initialize first memory block */
-MemoryBlock *initialize_first_block(void *memory_pool, size_t pool_size);
-
 /* Function to allocate memory */
 void *allocate_memory(MemoryManager *manager, size_t size);
-
-/* Function to implement first fit algoirithm */
-void *first_fit(MemoryManager *manager, size_t size);
 
 /* Function to free/deallocate memory */
 void deallocate_memory(MemoryManager *manager, void *ptr);
 
-/* Helper functions for deallocating memory */
+/* Function to cleanup memory*/
+void free_memory_manager(MemoryManager *manager);
 
+
+/* Helper functions for allocating and deallocating memory */
+
+
+/* Function to initialize first memory block */
+MemoryBlock *initialize_first_block(void *memory_pool, size_t pool_size);
+/* Function to implement first fit algoirithm */
+void *first_fit(MemoryManager *manager, size_t size);
+/* Function to implement best_fit algorithm */
+void *best_fit(MemoryManager *manager, size_t size);
 /*Retrieves the memory block associated with a given pointer*/
 MemoryBlock *get_memory_block(void *ptr);
 /*Checks if a memory block is within the range of a memory manager*/
@@ -102,18 +107,12 @@ bool is_block_allocated(MemoryManager *manager, void *ptr);
 void set_is_allocated_false(MemoryBlock *block);
 
 
-
-/* Function to cleanup memory*/
-void free_memory_manager(MemoryManager *manager);
-
-
 /**
  * setter functions 
  */
 
 /* setter function to set is_allocated field of a MemoryBlock*/
 void set_allocated(MemoryBlock *block, bool allocated);
-
 /* setter function to set size field of a MemoryBlock */
 void set_block_size(MemoryBlock *block, size_t size);
 
@@ -128,26 +127,17 @@ size_t get_pool_size(TestScenario scenario);
 size_t get_max_block_size(TestScenario scenario);
 
 
-
 /**
  * Testing function prototypes
  */
 
 /* Function to initialize test scenario */
 void initialize_test_scenarios(TestScenario *scenarios);
-
 /* simulate allocation and deallocation requests */
 void run_test_scenario(MemoryManager *manager, TestScenario scenario);
-
 /* Function to print statistics */
 void print_statistics(TestScenario scenario, size_t total_allocations, size_t total_deallocations, double alloc_time, double dealloc_time,
                       size_t max_allocated_size, size_t min_allocated_size, double average_allocated_size, size_t total_failed_allocations);
-
-/*Function to perform various tests on the memory manager*/
-void perform_tests();
-
-/* Function to implement best_fit algorithm */
-void *best_fit(MemoryManager *manager, size_t size);
 
 
 #endif /* MEMORY_MANAGER_H */

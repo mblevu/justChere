@@ -63,4 +63,3 @@ void *first_fit(MemoryManager *manager, size_t size)
 
 	return (NULL);
 }
-

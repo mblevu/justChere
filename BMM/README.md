@@ -13,6 +13,13 @@ so that Manager can allocate it to some other module on request.
 
 The code in this project complies with ANSI C standard.
 
+# Jump straight to the point
+```
+$ make
+```
+This will build bitmm and run tests. To clean up:  ```make clean```
+
+# How to Build
 # Prerequisites:
 
 - GCC (GNU Compiler Collection): For compiling C code.
